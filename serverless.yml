@@ -43,7 +43,7 @@ functions:
     events:
       - httpApi:
           path: /webhook
-          method: get
+          method: post
 
 plugins:
   - serverless-python-requirements

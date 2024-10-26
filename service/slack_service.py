@@ -14,6 +14,7 @@ class SlackService:
         self.client = WebClient(token=slack_token)
 
     def process_slack_message(self, message: str):
+        logger.info(message)
         escaped_elements = re.findall(r'<.*?>', message)
         users = [l.split('|')[0][2:] for l in escaped_elements if '|' in l and '@' in l]
 
