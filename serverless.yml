@@ -1,0 +1,49 @@
+org: cablespaghetti
+app: compliment-bot
+service: compliment-bot
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    dockerImage: public.ecr.aws/sam/build-python3.12:1.123.0
+
+provider:
+  name: aws
+  # Some python depedencies compile code
+  # Architecture must match build machine e.g. arm64 for Macs
+  architecture: arm64
+  runtime: python3.12
+  region: eu-west-1
+  stage: dev
+  memorySize: 128
+  endpointType: REGIONAL
+  resolver: sandbox
+
+stages:
+  dev:
+    resolvers:
+      sandbox:
+        type: aws
+        dashboard: false
+        profile: sandbox
+        region: eu-west-1
+
+package:
+  include:
+    - "!./**"
+    - "./service/**"
+    - "./lambda_function.py"
+  exclude:
+    - "**"
+  individually: false
+
+functions:
+  api:
+    handler: lambda_function.lambda_handler
+    events:
+      - httpApi:
+          path: /webhook
+          method: get
+
+plugins:
+  - serverless-python-requirements
