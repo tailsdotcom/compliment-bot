@@ -7,8 +7,7 @@ from urllib.parse import parse_qs
 from service.compliment_bot import ComplimentBot
 from service.slack_service import SlackService
 
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+logging.basicConfig(format="%(asctime)s %(message)s", level=logging.INFO, force=True)
 
 def respond(err, res=None):
     rsp = {
@@ -26,9 +25,10 @@ def respond(err, res=None):
 
 def lambda_handler(event, context):
     slack_token = os.environ['SLACK_TOKEN']
+    logging.info(str(event))
 
     params = parse_qs(base64.b64decode(event['body']))
-
+    logging.info("Params" + str(params))
     user = params[b'user_id'][0].decode("utf-8")
     response_url = params[b'response_url'][0].decode("utf-8")
     if b'text' in params:

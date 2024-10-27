@@ -3,9 +3,6 @@ import logging
 from service.compliment_service import ComplimentService
 
 
-logger = logging.getLogger()
-
-
 class ComplimentBot:
     def __init__(self, slack_service):
         self.slack_service = slack_service
@@ -16,7 +13,7 @@ class ComplimentBot:
         sender = self.slack_service.get_user_info(user_id)
         recipients = [self.slack_service.get_user_info(id) for id in users]
         
-        logger.info(f"user {sender['name']} | message {text}")
+        logging.info(f"user {sender['name']} | message {text}")
 
         compliment_service = ComplimentService()
 
