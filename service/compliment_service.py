@@ -1,7 +1,4 @@
-from service.messages import (
-    BLOCK_DIVIDER,
-    get_compliment_block,
-)
+from service.messages import BLOCK_DIVIDER, get_compliment_block
 
 
 class ComplimentService:

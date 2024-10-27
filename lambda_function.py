@@ -1,7 +1,6 @@
 import base64
 import logging
 import os
-
 from urllib.parse import parse_qs
 
 from service.compliment_bot import ComplimentBot

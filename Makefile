@@ -1,12 +1,12 @@
 format:
-	black src/ utils/ tests/
-	isort --profile black src/ utils/ tests/
+	black lambda_function.py service/
+	isort --profile black lambda_function.py service/
 
 lint:
-	black --check src/ utils/ tests/
-	isort --profile black --check src/ utils/ tests/
-	flake8 src/ utils/ tests/
-	mypy src/ utils/
+	black --check lambda_function.py service/
+	isort --profile black --check lambda_function.py service/
+	flake8 lambda_function.py service/
+	mypy lambda_function.py service/
 
 test:
 	pytest -v --cov --cov-report xml:coverage.xml --cov-report term tests/
