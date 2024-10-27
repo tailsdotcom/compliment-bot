@@ -8,7 +8,14 @@ class ComplimentBot:
         self.slack_service = slack_service
 
     def compliment(self, user_id: str, text: str, response_url: str) -> bool:
-        users, message = self.slack_service.process_slack_message(text)
+
+        try:
+            users, message = self.slack_service.process_slack_message(text)
+        except AttributeError:
+            self.slack_service.send_ephemeral_response(
+                "Please use the format `@username My compliment text`", response_url
+            )
+            return None
 
         sender = self.slack_service.get_user_info(user_id)
         recipients = [self.slack_service.get_user_info(id) for id in users]
